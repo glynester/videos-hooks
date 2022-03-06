@@ -6,7 +6,11 @@ const VideoItem=({video, onVideoSelected})=>{
   // console.log("VideoItem",props.video);
   return (
     <div onClick={()=>onVideoSelected(video)} className="video-item item">
-      <img className='ui image' src={video.snippet.thumbnails.medium.url}/>
+      <img 
+        className='ui image' 
+        src={video.snippet.thumbnails.medium.url} 
+        alt={video.snippet.title} 
+      />
       <div className='content'>
         <div className='header'>{video.snippet.title}</div>
       </div>
@@ -17,7 +21,3 @@ const VideoItem=({video, onVideoSelected})=>{
 
 export default VideoItem;
 
-{/* <iframe key={video.id.videoId} type="text/html" width="640" height="360"
-src={"https://www.youtube.com/embed/"+video.id.videoId}
-frameborder="0">
-</iframe> */}
