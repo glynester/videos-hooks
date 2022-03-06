@@ -4,7 +4,7 @@ import VideoList from './VideoList';
 import youtube from '../apis/youtube';
 
 class App extends React.Component{
-  state = { videos:[] }
+  state = { videos:[], selectedVideo: null }
 
   // Asynchronous API request
   onTermSubmit= async(term)=>{
@@ -16,13 +16,18 @@ class App extends React.Component{
     console.log(response.data.items)
     this.setState({videos: response.data.items});
   }
+// Should be defined as an arrow function as it's a callback.
+  onVideoSelect=video=>{
+    console.log('From App=>video',video);
+    // TO DO: Set state of selectedVideo.
+  }
 
   render(){
     return (
       <div className="ui container">
         <SearchBar onSBFormSubmit={ this.onTermSubmit }/>
         There were {this.state.videos.length} videos returned!!!
-        <VideoList videos={this.state.videos}/>
+        <VideoList onVideoSelected={this.onVideoSelect} videos={this.state.videos}  />
       </div>
     )
   }
