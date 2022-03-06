@@ -7,6 +7,11 @@ import youtube from '../apis/youtube';
 class App extends React.Component{
   state = { videos:[], selectedVideo: null }
 
+  // Do a default video search when the page first loads.
+  componentDidMount(){
+    this.onTermSubmit("amazing animals");
+  }
+
   // Asynchronous API request
   onTermSubmit= async(term)=>{
     console.log('term', term);
@@ -14,8 +19,12 @@ class App extends React.Component{
     const response = await youtube.get('/search',{
       params: { q: term }
     });
-    console.log(response.data.items)
-    this.setState({videos: response.data.items});
+    console.log(response.data.items);
+    // Use first video returned as default to display.
+    this.setState({
+      videos: response.data.items,
+      selectedVideo: response.data.items[0]
+    });
   }
 // Should be defined as an arrow function as it's a callback.
   onVideoSelect=video=>{
