@@ -3,13 +3,15 @@ import SearchBar from './SearchBar';
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
 import youtube from '../apis/youtube';
+import {getRandom, Constants} from '../gbHelperCode/gbHelper';
 
 class App extends React.Component{
   state = { videos:[], selectedVideo: null }
 
   // Do a default video search when the page first loads.
   componentDidMount(){
-    this.onTermSubmit("amazing animals");
+    const word = getRandom(Constants.SEARCH_WORDS,1)[0];
+    this.onTermSubmit(word);
   }
 
   // Asynchronous API request
@@ -19,11 +21,14 @@ class App extends React.Component{
     const response = await youtube.get('/search',{
       params: { q: term }
     });
-    console.log(response.data.items);
+    console.log("data",response.data.items);
     // Use first video returned as default to display.
+    const responseTen=getRandom(response.data.items,10);
     this.setState({
-      videos: response.data.items,
-      selectedVideo: response.data.items[0]
+      // videos: response.data.items,
+      // selectedVideo: response.data.items[0]
+      videos: responseTen,
+      selectedVideo: responseTen[0]
     });
   }
 // Should be defined as an arrow function as it's a callback.
