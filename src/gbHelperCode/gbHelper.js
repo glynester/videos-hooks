@@ -12,7 +12,7 @@ const getRandom = (arr, num = 1) => {
  };
 
 const Constants = {
-    SEARCH_WORDS: ["funny","amazing","tennis","animals","best","awesome","top"]
+    SEARCH_WORDS: ["funny","amazing","tennis","animals","best","awesome","top", "beautiful mountain media", "80's music","try not to laugh","incredible"]
   }
 
 export {getRandom, Constants};
