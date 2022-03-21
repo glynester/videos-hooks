@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 const SearchBar=({onSBFormSubmit})=>{
   const [term, setTerm] = useState('');
 
-  const onTermChange=(event)=>{
-    // this.setState({term: event.target.value})
-    setTerm(event.target.value);
-  }
+  // const onTermChange=(event)=>{
+  //   // this.setState({term: event.target.value})
+  //   setTerm(event.target.value);
+  // }
 
   const onFormSubmit=(e)=>{
     e.preventDefault();
@@ -26,7 +26,7 @@ const SearchBar=({onSBFormSubmit})=>{
             // value={this.state.term}
             value={term}
             // onChange={this.onTermChange}
-            onChange={onTermChange}
+            onChange={(event)=>setTerm(event.target.value)}
           />
         </div>
       </form>
