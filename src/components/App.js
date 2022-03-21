@@ -3,35 +3,25 @@ import React, {useState, useEffect} from 'react';
 import SearchBar from './SearchBar';
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
-import youtube from '../apis/youtube';
+// import youtube from '../apis/youtube';
 import {getRandom, Constants} from '../gbHelperCode/gbHelper';
+import useVideos from '../hooks/useVideos';
 
 
 const App=()=>{
-  const [videos, setVideos]=useState([]);
-  const [selectedVideo, setSelectedVideo]=useState(null);
+  const [selectedVideo, setSelectedVideo]=useState(null);  
+    const term = getRandom(Constants.SEARCH_WORDS,1)[0];
+    // Call custom hook in the same way you would call any other hook.
+    const [videos, search] = useVideos(term);
 
     useEffect(()=>{
-      const word = getRandom(Constants.SEARCH_WORDS,1)[0];
-      onTermSubmit(word);
-    },[]);
-
-    const onTermSubmit= async(term)=>{
-      const response = await youtube.get('/search',{
-        params: { q: term }
-      });
-      const responseTen=getRandom(response.data.items,10);
-      setVideos(responseTen);
-      setSelectedVideo(responseTen[0])
-    }
-
-    // const onVideoSelect=video=>{
-    //   setSelectedVideo(video);
-    // }
+      setSelectedVideo(videos[0])
+    },[videos]);
 
     return (
       <div className="ui container">
-        <SearchBar onSBFormSubmit={ onTermSubmit }/>
+        {/* <SearchBar onSBFormSubmit={ onTermSubmit }/> */}
+        <SearchBar onSBFormSubmit={ search }/>
         <div className="ui grid">
           <div className="ui row">
             <div className="eleven wide column">
